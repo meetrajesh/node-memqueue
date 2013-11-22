@@ -21,139 +21,139 @@ var q2 = new memq('testq2');
 var q3 = new memq('testq3');
 
 a.chain(
-		function(next) {
-			q1.count(function(count) {
-					assert.equal(count, 0);
-					next();
-				});
-		},
-		function(next) {
-			q1.is_empty(function(ret) {
-					assert.equal(ret, true);
-					next();
-				});
-		},
-		function(next) {
-			var elemsToPush = ['a', 'b', 'c'];
-			var pushFunc = function(elem, cb) {
-				if (elem) {
-					q1.push(elem, function() {
-							return pushFunc(elemsToPush.shift(), cb)
-						});
-				} else {
-					return cb();
-				}
-			};
-			pushFunc(elemsToPush.shift(), next);
-		},
-		function(next) {
-			q1.count(function(count) {
-					assert.equal(count, 3);
-					next();
-				});
-		},
-		function(next) {
-			q1.is_empty(function(ret) {
-					assert.equal(ret, false);
-					next();
-				});
-		},
-		function(next) {
-			q1.peek(function(elem) {
-					assert.equal(elem, 'a');
-					next();
-				});
-		},
-		function(next) {
-			q1.pop(function(elem) {
-					assert.equal(elem, 'a');
-					next();
-				});
-		},
-		function(next) {
-			q1.count(function(count) {
-					assert.equal(count, 2);
-					next();
-				});
-		},
-		function(next) {
-			q1.pop(function(elem) {
-					assert.equal(elem, 'b');
-					next();
-				});
-		},
-		function(next) {
-			q1.push('d', next);
-		},
-		function(next) {
-			q2.push('a2', next);
-		},
-		function(next) {
-			q1.pop(function(elem) {
-					assert.equal(elem, 'c');
-					next();
-				});
-		},
-		function(next) {
-			q1.peek(function(elem) {
-					assert.equal(elem, 'd');
-					next();
-				});
-		},
-		function(next) {
-			q1.pop(function(elem) {
-					assert.equal(elem, 'd');
-					next();
-				});
-		},
-		function(next) {
-			q1.pop(function(elem) {
-					assert.equal(elem, false);
-					next();
-				});
-		},
-		function(next) {
-			q1.peek(function(elem) {
-					assert.equal(elem, false);
-					next();
-				});
-		},
-		function(next) {
-			q2.pop(function(elem) {
-					assert.equal(elem, 'a2');
-					next();
-				});
-		},
-		function(next) {
-			var elemsToPush = ['a', 'b', 'c'];
-			var pushFunc = function(elem, cb) {
-				if (elem) {
-					q3.push(elem, function() {
-							return pushFunc(elemsToPush.shift(), cb)
-						});
-				} else {
-					return cb();
-				}
-			};
-			pushFunc(elemsToPush.shift(), next);
-		},
-		function(next) {
-			q3.count(function(count) {
-					assert.equal(count, 3);
-					next();
-				});
-		},
-		function(next) {
-			q3.del(function() {
-					q3.count(function(count) {
-							assert.equal(count, 0);
-							next();
-						});
-				});
-		},
-		function(next) {
-			memc.end();
-			next();
-		}
+    function(next) {
+        q1.count(function(count) {
+            assert.equal(count, 0);
+            next();
+        });
+    },
+    function(next) {
+        q1.is_empty(function(ret) {
+            assert.equal(ret, true);
+            next();
+        });
+    },
+    function(next) {
+        var elemsToPush = ['a', 'b', 'c'];
+        var pushFunc = function(elem, cb) {
+        if (elem) {
+            q1.push(elem, function() {
+                return pushFunc(elemsToPush.shift(), cb)
+            });
+        } else {
+            return cb();
+        }
+        };
+        pushFunc(elemsToPush.shift(), next);
+    },
+    function(next) {
+        q1.count(function(count) {
+            assert.equal(count, 3);
+            next();
+        });
+    },
+    function(next) {
+        q1.is_empty(function(ret) {
+            assert.equal(ret, false);
+            next();
+        });
+    },
+    function(next) {
+        q1.peek(function(elem) {
+            assert.equal(elem, 'a');
+            next();
+        });
+    },
+    function(next) {
+        q1.pop(function(elem) {
+            assert.equal(elem, 'a');
+            next();
+        });
+    },
+    function(next) {
+        q1.count(function(count) {
+            assert.equal(count, 2);
+            next();
+        });
+    },
+    function(next) {
+        q1.pop(function(elem) {
+            assert.equal(elem, 'b');
+            next();
+        });
+    },
+    function(next) {
+        q1.push('d', next);
+    },
+    function(next) {
+        q2.push('a2', next);
+    },
+    function(next) {
+        q1.pop(function(elem) {
+            assert.equal(elem, 'c');
+            next();
+        });
+    },
+    function(next) {
+        q1.peek(function(elem) {
+            assert.equal(elem, 'd');
+            next();
+        });
+    },
+    function(next) {
+        q1.pop(function(elem) {
+            assert.equal(elem, 'd');
+            next();
+        });
+    },
+    function(next) {
+        q1.pop(function(elem) {
+            assert.equal(elem, false);
+            next();
+        });
+    },
+    function(next) {
+        q1.peek(function(elem) {
+            assert.equal(elem, false);
+            next();
+        });
+    },
+    function(next) {
+        q2.pop(function(elem) {
+            assert.equal(elem, 'a2');
+            next();
+        });
+    },
+    function(next) {
+        var elemsToPush = ['a', 'b', 'c'];
+        var pushFunc = function(elem, cb) {
+        if (elem) {
+            q3.push(elem, function() {
+                return pushFunc(elemsToPush.shift(), cb)
+            });
+        } else {
+            return cb();
+        }
+        };
+        pushFunc(elemsToPush.shift(), next);
+    },
+    function(next) {
+        q3.count(function(count) {
+            assert.equal(count, 3);
+            next();
+        });
+    },
+    function(next) {
+        q3.del(function() {
+            q3.count(function(count) {
+                assert.equal(count, 0);
+                next();
+            });
+        });
+    },
+    function(next) {
+        memc.end();
+        next();
+    }
 );
 
