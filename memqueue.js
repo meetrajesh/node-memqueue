@@ -1,4 +1,3 @@
-"use strict";
 var memcached = require('memcached'),
 	memc = new memcached('localhost:11211'),
 	sleep = require('sleep'),
